@@ -1,0 +1,21 @@
+vyatta-ndpi-support (4.2-1danos1) unstable; urgency=medium
+
+  * Split the DANOS-specific pieces out of the ndpi fork.
+    The library itself now comes from Debian 13 (libndpi 4.2); this package
+    carries only what DANOS added on top: the two YANG modules enumerating
+    nDPI's application names and types, and the ndpi_show_name helper.
+  * Regenerate both YANG modules against nDPI 4.2. 46 names were added; the
+    23 names nDPI dropped since 3.4 are deliberately kept in the enumeration
+    so existing configuration still validates.
+  * Fix revision ordering in application_{names,types}_yang.sh. With
+    OLD_YANG_FILE set, the heading carries the module's existing revisions and
+    the new revision was appended after them, leaving the newest one last.
+    RFC 7950 7.1.9 wants reverse-chronological order; yangc rejects anything
+    else with "revision block out of order", which aborts the ISO build.
+  * Fix the enum merge in application_{names,types}_yang.sh. They diffed the
+    old and new lists with comm(1), which needs both inputs sorted, but the
+    old list is read from the YANG module -- whose own comment states the
+    order is not significant. With an unsorted old list comm missed overlaps
+    and emitted 13 duplicate enums, which YANG rejects.
+
+ -- DANOS Package Maintainers <DANOS@att.com>  Sat, 15 Aug 2026 00:00:00 +0000

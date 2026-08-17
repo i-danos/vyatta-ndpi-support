@@ -1,0 +1,14 @@
+# Compiled from generation/*.c by debian/rules
+/generation/applications_list
+/generation/ndpi_show_name
+
+# Build output
+/debian/files
+/debian/.debhelper/
+/debian/debhelper-build-stamp
+/debian/vyatta-ndpi-application-names-v1-yang/
+/debian/vyatta-ndpi-application-types-v1-yang/
+/debian/vyatta-ndpi-show-name/
+/debian/*.debhelper.log
+/debian/*.debhelper
+/debian/*.substvars
