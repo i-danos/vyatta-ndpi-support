@@ -1,0 +1,41 @@
+Source: vyatta-ndpi-support
+Section: net
+Priority: optional
+Maintainer: DANOS Package Maintainers <DANOS@att.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ libndpi-dev (>= 4.2),
+ libpcap-dev,
+ pkg-config
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: vyatta-ndpi-application-names-v1-yang
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: DPI application names YANG module
+ Enumerates the application names nDPI can identify, for use by the DPI
+ match conditions in firewall, QoS and PBR policies.
+ .
+ The enumeration is generated from the nDPI library at build time. Names
+ are only ever appended: entries nDPI has since dropped stay listed so that
+ existing configuration keeps validating, even though the library no longer
+ detects them.
+
+Package: vyatta-ndpi-application-types-v1-yang
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: DPI application types YANG module
+ Enumerates the application categories nDPI groups its protocols into.
+ Generated from the nDPI library at build time, appending only.
+
+Package: vyatta-ndpi-show-name
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: DPI application name lookup helper
+ Prints the application names nDPI associates with a given application type.
+ Used by the operational-mode DPI commands.

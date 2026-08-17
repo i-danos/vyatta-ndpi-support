@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+# These sources were carried inside DANOS's ndpi fork. That fork is gone: the
+# library now comes from Debian (libndpi 4.2), and only the DANOS-specific
+# pieces -- the two generated YANG modules and the name-lookup helper -- are
+# built here, against Debian's headers.
+
+CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS) -I/usr/include/ndpi
+LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+LIBS := -lndpi -lpcap -lpthread -lm
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cd generation && \
+	  $(CC) $(CFLAGS) applications_list.c -o applications_list $(LDFLAGS) $(LIBS) && \
+	  $(CC) $(CFLAGS) ndpi_show_name.c   -o ndpi_show_name   $(LDFLAGS) $(LIBS)
+
+override_dh_auto_clean:
+	rm -f generation/applications_list generation/ndpi_show_name
