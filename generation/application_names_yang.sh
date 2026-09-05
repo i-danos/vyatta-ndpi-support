@@ -84,7 +84,7 @@ if [ -n "$OLD_YANG_FILE" ]; then
 
   # Extract the new names and append them to the old list
   TMP=/tmp/app_name_yang.tmp
-  echo "$old_list" | sort > $TMP	# comm 要求两侧有序；old_list 按模块约定不保证字母序
+  echo "$old_list" | sort > $TMP	# comm needs both sides sorted, and old_list is ordered by module convention, not alphabetically
   apps=$(echo "${old_list}" && comm -13 $TMP - <<< $new_list | sed '/^[[:blank:]]*$/d')
   rm -f $TMP
 else
